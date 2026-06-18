@@ -90,9 +90,30 @@ async function carregarPastaPalcoPlay() {
 
 
 function atualizarBotaoPastaHome() {
-    const statusPasta = localStorage.getItem("palcoplay_config_inicial");
+    const statusPasta =
+        localStorage.getItem("palcoplay_config_inicial");
+
+    const precisaReconfigurar =
+        localStorage.getItem("palcoplay_precisa_reconfigurar_pasta");
 
     if (!btnConectarPastaHome) {
+        return;
+    }
+
+    const textoPastaHome =
+        document.getElementById("texto-pasta-home");
+
+    if (precisaReconfigurar === "sim") {
+        btnConectarPastaHome.classList.remove("d-none");
+
+        btnConectarPastaHome.innerHTML =
+            '<i class="bi bi-folder2-open"></i> Confirmar Pasta PalcoPlay';
+
+        if (textoPastaHome) {
+            textoPastaHome.textContent =
+                "Toque aqui e confirme “Usar esta pasta” para reconectar músicas e letras.";
+        }
+
         return;
     }
 
@@ -100,28 +121,37 @@ function atualizarBotaoPastaHome() {
         btnConectarPastaHome.innerHTML =
             '<i class="bi bi-arrow-repeat"></i> Sincronizar arquivos';
 
-        const textoPastaHome = document.getElementById("texto-pasta-home");
-
         if (textoPastaHome) {
             textoPastaHome.textContent =
                 "Sincronize antes de tocar para garantir que músicas e letras estejam conectadas.";
         }
-    } else {
-        btnConectarPastaHome.innerHTML =
-            '<i class="bi bi-folder2-open"></i> Configurar Pasta PalcoPlay';
 
-        const textoPastaHome = document.getElementById("texto-pasta-home");
+        return;
+    }
 
-        if (textoPastaHome) {
-            textoPastaHome.textContent =
-                "Configure sua pasta para usar todos os recursos do PalcoPlay.";
-        }
+    btnConectarPastaHome.classList.remove("d-none");
+
+    btnConectarPastaHome.innerHTML =
+        '<i class="bi bi-folder2-open"></i> Configurar Pasta PalcoPlay';
+
+    if (textoPastaHome) {
+        textoPastaHome.textContent =
+            "Configure sua pasta para usar todos os recursos do PalcoPlay.";
     }
 }
-
 async function escolherESincronizarPastaPalcoPlay() {
 
     try {
+        const precisaReconfigurar =
+            localStorage.getItem("palcoplay_precisa_reconfigurar_pasta");
+
+        if (precisaReconfigurar === "sim") {
+            pastaPalcoPlayHandle = await window.showDirectoryPicker();
+            await salvarPastaPalcoPlay(pastaPalcoPlayHandle);
+
+            localStorage.removeItem("palcoplay_precisa_reconfigurar_pasta");
+        }
+
         if (!pastaPalcoPlayHandle) {
             pastaPalcoPlayHandle = await carregarPastaPalcoPlay();
         }
@@ -147,6 +177,7 @@ async function escolherESincronizarPastaPalcoPlay() {
         }
 
         localStorage.setItem("palcoplay_config_inicial", "configurado");
+        localStorage.removeItem("palcoplay_precisa_reconfigurar_pasta");
 
         atualizarBotaoPastaHome();
 
@@ -185,8 +216,15 @@ async function escolherESincronizarPastaPalcoPlay() {
 
         pastaPalcoPlayHandle = null;
 
+        localStorage.setItem(
+            "palcoplay_precisa_reconfigurar_pasta",
+            "sim"
+        );
+
+        atualizarBotaoPastaHome();
+
         mostrarMensagemTemporaria(
-            "⚠ Não consegui acessar a pasta. Configure novamente.",
+            "📁 Confirme a Pasta PalcoPlay para reconectar os arquivos.",
             "warning"
         );
     }
