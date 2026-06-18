@@ -1,4 +1,4 @@
-const CACHE_NAME = "palcoplay-cache-v0.25";
+const CACHE_NAME = "palcoplay-cache-v0.26";
 
 const ARQUIVOS_CACHE = [
     "./",

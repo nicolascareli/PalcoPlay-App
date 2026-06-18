@@ -2421,6 +2421,15 @@ inputImportarBackup.addEventListener("change", function() {
             const totalDesconectados = contarArquivosDesconectados();
 
             if (totalDesconectados > 0) {
+                localStorage.setItem(
+                    "palcoplay_precisa_reconfigurar_pasta",
+                    "sim"
+                );
+
+                if (typeof atualizarBotaoPastaHome === "function") {
+                    atualizarBotaoPastaHome();
+                }
+
                 quantidadeArquivosDesconectados.textContent = totalDesconectados;
 
                 telaDetalhePlaylist.classList.add("d-none");
@@ -2507,7 +2516,22 @@ function restaurarBackupAutomatico() {
 
 
 menuPastaPalcoPlay.addEventListener("click", async function() {
-    await selecionarPastaPalcoPlay();
+    const offcanvasMenu = bootstrap.Offcanvas.getInstance(
+        document.getElementById("menuPalcoPlay")
+    );
+
+    if (offcanvasMenu) {
+        offcanvasMenu.hide();
+    }
+
+    localStorage.setItem(
+        "palcoplay_precisa_reconfigurar_pasta",
+        "sim"
+    );
+
+    if (typeof escolherESincronizarPastaPalcoPlay === "function") {
+        await escolherESincronizarPastaPalcoPlay();
+    }
 });
 
 async function selecionarPastaPalcoPlay() {
