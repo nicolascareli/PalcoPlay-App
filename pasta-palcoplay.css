@@ -1,0 +1,175 @@
+.icone-config-pasta {
+    font-size: 52px;
+    color: #ff5f6d;
+}
+
+.texto-config-pasta {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.status-pasta-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(25, 135, 84, 0.12);
+    border: 1px solid rgba(25, 135, 84, 0.45);
+    color: #dfffe9;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.status-pasta-home strong {
+    color: #44e07f;
+    font-size: 13px;
+}
+
+.status-pasta-home span {
+    opacity: .75;
+}
+
+.modal-pasta-fullscreen {
+    min-height: 100vh;
+}
+
+.modal-pasta-header {
+    justify-content: center;
+    border-bottom: 1px solid #333;
+}
+
+.modal-pasta-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.logo-modal-pasta {
+    height: 32px;
+}
+
+.modal-pasta-body {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-config-pasta {
+    font-size: 58px;
+    color: #ff5f6d;
+    margin-bottom: 20px;
+}
+
+.texto-principal-pasta,
+.texto-config-pasta {
+    color: #ccc;
+    font-size: 15px;
+}
+
+.nome-pasta-copiar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 26px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #111;
+    border: 1px solid #ff5f6d;
+}
+
+.nome-pasta-copiar strong {
+    color: #fff;
+    font-size: 18px;
+}
+
+.btn-copiar-pasta {
+    border: none;
+    background: transparent;
+    color: #ffb84d;
+    font-size: 18px;
+}
+
+.passos-pasta {
+    width: 100%;
+    display: grid;
+    gap: 12px;
+}
+
+.passo-pasta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 14px;
+    padding: 14px 16px;
+}
+
+.passo-pasta span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff7a2f, #ff3d8f, #d100b9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.passo-pasta p {
+    margin: 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.modal-pasta-footer {
+    justify-content: center;
+    gap: 12px;
+    border-top: 1px solid #333;
+}
+
+.tela-configuracao-inicial {
+    min-height: calc(100vh - 80px);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-config-inicial {
+    max-width: 220px;
+    margin-bottom: 30px;
+}
+
+.tela-configuracao-inicial h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.texto-boas-vindas {
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.acoes-config-inicial {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}

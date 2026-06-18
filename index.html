@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- CONFIGURAÇÕES BÁSICAS DO SITE -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TÍTULO DO APLICATIVO -->
+    <title>PalcoPlay</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP VIA CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- CSS DO PROJETO -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="volume.css">
+    <link rel="stylesheet" href="modo-palco.css">
+    <link rel="stylesheet" href="pasta-palcoplay.css">
+    <link rel="stylesheet" href="auth.css">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+
+    <link rel="icon" href="./img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
+</head>
+
+<body>
+    <div id="splash-screen">
+
+        <div class="splash-content">
+
+            <img src="img/palcoplay-logo.png" alt="PalcoPlay" class="splash-logo">
+
+            <div class="loading-spinner"></div>
+
+        </div>
+
+    </div>
+
+    <div id="mensagem-geral" class="mensagem-geral d-none"></div>
+
+    <!-- CABEÇALHO DO APP -->
+    <header class="app-header">
+        <button id="btn-voltar-header" class="btn-voltar-header d-none">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <img src="img/palcoplay-logo-2.png" alt="PalcoPlay" class="logo-topo">
+
+        <button id="btn-busca-header" class="btn-busca-header">
+        <i class="bi bi-search"></i>
+        </button>
+
+        <button id="btn-menu-topo" class="btn-menu-header" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuPalcoPlay">
+            <i class="bi bi-list"></i>
+        </button>
+
+    </header>
+
+    <div id="barra-busca-header" class="barra-busca-header d-none">
+
+        <input type="text" id="input-pesquisa-musica-header" class="form-control" placeholder="Buscar música...">
+
+        <button id="btn-fechar-busca">
+        <i class="bi bi-x-lg"></i>
+    </button>
+
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container app-main">
+
+        <section id="tela-configuracao-inicial" class="tela-configuracao-inicial d-none">
+
+            <img src="img/palcoplay-logo-2.png" alt="PalcoPlay" class="logo-config-inicial">
+
+            <h1>Bem-vindo ao PalcoPlay</h1>
+
+            <p class="texto-boas-vindas">
+                Antes de começar, configure sua Pasta PalcoPlay para reconectar músicas, PDFs e imagens automaticamente sempre que abrir o app.
+            </p>
+
+            <div class="nome-pasta-copiar">
+                <strong id="nome-pasta-palcoplay">PalcoPlay</strong>
+
+                <button type="button" id="btn-copiar-nome-pasta" class="btn-copiar-pasta">
+                    <i class="bi bi-copy"></i>
+                </button>
+            </div>
+
+            <div class="passos-pasta">
+                <div class="passo-pasta">
+                    <span>1</span>
+                    <p>Crie uma pasta no seu dispositivo com o nome <strong>PalcoPlay</strong>.</p>
+                </div>
+
+                <div class="passo-pasta">
+                    <span>2</span>
+                    <p>Coloque suas músicas, PDFs, PNGs e JPGs dentro dessa pasta.</p>
+                </div>
+
+                <div class="passo-pasta">
+                    <span>3</span>
+                    <p>Clique em <strong>Configurar Pasta</strong> e selecione essa pasta.</p>
+                </div>
+            </div>
+
+            <div class="acoes-config-inicial">
+                <button id="btn-ignorar-config-pasta-tela" class="btn btn-cancelar">
+                    Ignorar por enquanto
+                </button>
+
+                <button id="btn-configurar-pasta-inicial-tela" class="btn btn-palcoplay">
+                    Configurar Pasta
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ÁREA DAS PLAYLISTS -->
+        <section id="tela-playlists">
+
+            <h2 class="text-center mb-5">Minhas playlists</h2>
+
+            <div id="bloco-instalar-app-home" class="bloco-instalar-app-home">
+                <button id="btn-instalar-app-home" class="btn-instalar-app-home">
+                    <i class="bi bi-phone"></i>
+                    Instalar PalcoPlay
+                </button>
+
+                <p>
+                    Use o PalcoPlay como app no tablet. Se não abrir automaticamente, toque nos três pontinhos do navegador e escolha “Instalar app” ou “Adicionar à tela inicial”.
+                </p>
+            </div>
+
+            <div id="bloco-conectar-pasta-home" class="bloco-conectar-pasta-home">
+                <button id="btn-conectar-pasta-home" class="btn-conectar-pasta-home">
+                    <i class="bi bi-folder2-open"></i>
+                    Conectar Pasta PalcoPlay
+                </button>
+
+                <p id="texto-pasta-home">
+                    Configure sua pasta para sincronizar músicas e letras.
+                </p>
+            </div>
+
+            <!-- LISTA DE PLAYLISTS -->
+            <div id="lista-playlists" class="row justify-content-center mt-3">
+
+                <!-- CARD DE EXEMPLO -->
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="playlist-card" onclick="abrirPlaylist()">
+
+                        <div class="playlist-card-topo">
+
+                            <div>
+                                <h3 id="nome-playlist-card">Show Principal</h3>
+
+                                <p id="contador-musicas-playlist">
+                                    0 músicas adicionadas
+                                </p>
+                            </div>
+
+                            <div class="acoes-playlist">
+
+                                <button id="btn-playlist-subir" class="btn-ordem-playlist">
+        ↑
+      </button>
+
+                                <button id="btn-playlist-descer" class="btn-ordem-playlist">
+        ↓
+      </button>
+
+                                <div class="dropdown">
+
+                                    <button class="btn-playlist-menu" type="button" onclick="abrirMenuPlaylist(event)">
+          ⋮
+        </button>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark" id="menu-playlist" onclick="event.stopPropagation();">
+
+                                        <li>
+                                            <button class="dropdown-item" id="btn-menu-renomear-playlist">
+              Alterar nome
+            </button>
+                                        </li>
+
+                                        <li>
+                                            <button class="dropdown-item text-danger" id="btn-menu-excluir-playlist">
+              Excluir playlist
+            </button>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- BOTÃO CRIAR PLAYLIST -->
+            <button id="btn-criar-playlist" class="btn btn-palcoplay btn-criar-playlist">
+                + Criar nova playlist
+            </button>
+
+        </section>
+
+        <!-- TELA INTERNA DA PLAYLIST -->
+        <section id="tela-detalhe-playlist" class="d-none">
+
+            <button id="btn-voltar-playlists" class="d-none">
+                ← Voltar
+            </button>
+
+            <div class="titulo-playlist-linha">
+                <div class="cabecalho-playlist">
+
+                    <h2 id="nome-playlist-aberta">
+                        <i id="icone-playlist-aberta"></i>
+                        <span id="texto-nome-playlist-aberta">a OFICIAL</span>
+                    </h2>
+
+                    <button id="btn-editar-nome-playlist" class="btn-editar-playlist">
+    <i class="bi bi-pencil-square"></i>
+  </button>
+
+                </div>
+            </div>
+
+            <div class="acoes-playlist-aberta row g-2 justify-content-center">
+
+                <div class="col-12 col-md-7 col-lg-7">
+                    <button id="btn-tocar-playlist" class="btn-acao-principal w-100">
+                    <i class="bi bi-play-fill"></i>
+                    Tocar playlist completa
+                    </button>
+                </div>
+            </div>
+
+            <div id="bloco-pesquisa-musica" class="d-none mb-3">
+                <input type="text" id="input-pesquisa-musica" class="form-control" placeholder="Digite o nome da música...">
+            </div>
+
+            <div id="lista-arquivos-pasta" class="mt-3"></div>
+
+            <div id="lista-musicas">
+                <p class="texto-vazio">Nenhuma música adicionada ainda.</p>
+            </div>
+
+            <button id="btn-adicionar-musica" class="btn btn-palcoplay w-100 mt-3">
+                + Adicionar música
+            </button>
+
+        </section>
+
+        <!-- TELA DO PLAYER -->
+        <section id="tela-player" class="d-none">
+            <div id="topo-voltar-palco" class="topo-voltar-palco">
+                <button id="btn-voltar-palco" class="btn-voltar-palco">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Voltar
+                </button>
+            </div>
+
+
+            <div id="area-letra-player">
+                <p class="texto-vazio">Nenhuma letra carregada ainda.</p>
+            </div>
+
+            <div class="player-bar">
+
+                <button id="btn-musica-anterior" class="btn-player">
+                    ⏮
+                </button>
+
+                <button id="btn-play-pause" class="btn-play-central">
+                    ▶
+                </button>
+
+                <button id="btn-proxima-musica" class="btn-player">
+                    ⏭
+                </button>
+
+                <div class="player-info">
+                    <strong id="nome-musica-player">Nome da música</strong>
+
+                    <small id="proxima-musica-player">
+                        Próxima: —
+                    </small>
+
+                    <div class="barra-progresso">
+                        <div id="progresso-musica"></div>
+                        <div id="bolinha-progresso"></div>
+                    </div>
+
+                    <small>
+        <span id="tempo-atual">0:00</span>
+        /
+        <span id="tempo-total">0:00</span>
+      </small>
+                </div>
+
+            </div>
+
+            <audio id="audio-player"></audio>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL CRIAR PLAYLIST -->
+    <div class="modal fade" id="modalCriarPlaylist" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Criar nova playlist</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Nome da playlist</label>
+
+                    <div class="linha-nova-playlist">
+
+                        <input type="text" id="input-nome-nova-playlist" class="form-control" placeholder="Ex: Show Principal, Casamento, Barzinho">
+
+                    </div>
+
+                    <label class="form-label mt-3">Ícone da playlist</label>
+
+                    <div class="icones-playlist">
+
+                        <button type="button" class="icone-playlist selecionada" data-icone="bi-music-note-beamed">
+                            <i class="bi bi-music-note-beamed"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-heart-fill">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-fire">
+                            <i class="bi bi-fire"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-mic-fill">
+                            <i class="bi bi-mic-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-stars">
+                            <i class="bi bi-stars"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-sun-fill">
+                            <i class="bi bi-sun-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist" data-icone="bi-book-fill">
+                            <i class="bi bi-book-fill"></i>
+                        </button>
+
+                    </div>
+
+                    <label class="form-label mt-3 text-center">
+                        Cor
+                    </label>
+
+                    <div class="cores-playlist">
+
+                        <button type="button" class="cor-playlist" data-cor="#ff3d8f" style="background:#ff3d8f;"></button>
+
+                        <button type="button" class="cor-playlist" data-cor="#9c27b0" style="background:#9c27b0;"></button>
+
+                        <button type="button" class="cor-playlist" data-cor="#2196f3" style="background:#2196f3;"></button>
+
+                        <button type="button" class="cor-playlist" data-cor="#4caf50" style="background:#4caf50;"></button>
+
+                        <button type="button" class="cor-playlist" data-cor="#ffc107" style="background:#ffc107;"></button>
+
+                        <button type="button" class="cor-playlist" data-cor="#ff5722" style="background:#ff5722;"></button>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-cancelar" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+                        <button id="btn-salvar-nova-playlist" class="btn btn-palcoplay">
+          Criar playlist
+        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EXCLUIR PLAYLIST -->
+    <div class="modal fade" id="modalExcluirPlaylist" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir playlist</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir esta playlist?</p>
+                    <strong id="nome-playlist-excluir"></strong>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+                    <button id="btn-confirmar-excluir-playlist" class="btn btn-danger">
+          Excluir
+        </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR MÚSICA -->
+    <div class="modal fade" id="modalAdicionarMusica" tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar música</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <label class="form-label">Escolha o arquivo da música</label>
+
+                    <input type="file" id="input-audio-musica" class="form-control" accept="audio/*">
+
+                    <label class="form-label mt-3">Nome da música</label>
+
+                    <input type="text" id="input-nome-musica" class="form-control" placeholder="Ex: Anna Julia">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+
+                    <button type="button" id="btn-salvar-musica" class="btn btn-palcoplay">
+                                Salvar música
+                            </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL ALTERAR NOME -->
+    <div class="modal fade" id="modalAlterarNome" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar nome da música</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Nome da música</label>
+                    <input type="text" id="input-alterar-nome-musica" class="form-control">
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-alterar-nome" class="btn btn-palcoplay">Salvar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EXCLUIR MÚSICA -->
+    <div class="modal fade" id="modalExcluirMusica" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir música</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir esta música?</p>
+                    <strong id="nome-musica-excluir"></strong>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-excluir-musica" class="btn btn-danger">Excluir</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR LETRA -->
+    <div class="modal fade" id="modalAdicionarLetra" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar letra</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Escolha PDF, PNG ou JPG</label>
+
+                    <input type="file" id="input-arquivo-letra" class="form-control" accept=".pdf,.png,.jpg,.jpeg">
+
+                    <div id="opcoes-paginas-pdf" class="d-none">
+
+                        <label class="form-label mt-3">Como usar este PDF?</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="modo-pdf" id="pdf-inteiro" value="inteiro" checked>
+
+                            <label class="form-check-label" for="pdf-inteiro">
+                                PDF inteiro
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="modo-pdf" id="pdf-paginas" value="paginas">
+
+                            <label class="form-check-label" for="pdf-paginas">
+                                Apenas páginas específicas
+                            </label>
+                        </div>
+
+                        <div id="campos-paginas-pdf" class="d-none mt-3">
+
+                            <label class="form-label">Página inicial</label>
+                            <input type="number" id="input-pagina-inicial-pdf" class="form-control" min="1" placeholder="Ex: 5">
+
+                            <label class="form-label mt-2">Página final opcional</label>
+                            <input type="number" id="input-pagina-final-pdf" class="form-control" min="1" placeholder="Se vazio, usa só a página inicial">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="check-letra-musica-inteira">
+
+                        <label class="form-check-label" for="check-letra-musica-inteira">
+                                Usar esta letra do início ao fim da música
+                                </label>
+                    </div>
+
+                    <div id="bloco-tempos-letra">
+
+                        <label class="form-label mt-3">Aparecer a partir de</label>
+                        <input type="text" id="input-tempo-inicio-letra" class="form-control" placeholder="Ex: 0:00">
+
+                        <label class="form-label mt-3">Aparecer até</label>
+                        <input type="text" id="input-tempo-fim-letra" class="form-control" placeholder="Ex: 2:00">
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">
+                                Cancelar
+                        </button>
+
+                    <button id="btn-salvar-letra" class="btn btn-palcoplay">
+                                Salvar letra
+                            </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ALTERAR NOME DA PLAYLIST -->
+    <div class="modal fade" id="modalAlterarNomePlaylist" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar nome da playlist</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <label class="form-label">Nome da playlist</label>
+
+                    <div class="linha-nova-playlist">
+
+                        <input type="text" id="input-alterar-nome-playlist" class="form-control" placeholder="Nome da playlist">
+
+                    </div>
+
+                    <label class="form-label mt-3">Ícone da playlist</label>
+
+                    <div class="icones-playlist-editar">
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-music-note-beamed">
+                            <i class="bi bi-music-note-beamed"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-heart-fill">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-fire">
+                            <i class="bi bi-fire"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-mic-fill">
+                            <i class="bi bi-mic-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-stars">
+                            <i class="bi bi-stars"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-sun-fill">
+                            <i class="bi bi-sun-fill"></i>
+                        </button>
+
+                        <button type="button" class="icone-playlist-editar" data-icone="bi-book-fill">
+                            <i class="bi bi-book-fill"></i>
+                        </button>
+
+                    </div>
+
+                    <label class="form-label mt-3">Cor da playlist</label>
+
+                    <div class="cores-playlist-editar">
+
+                        <button type="button" class="cor-playlist-editar" data-cor="#ff3d8f" style="background:#ff3d8f;"></button>
+                        <button type="button" class="cor-playlist-editar" data-cor="#9c27b0" style="background:#9c27b0;"></button>
+                        <button type="button" class="cor-playlist-editar" data-cor="#2196f3" style="background:#2196f3;"></button>
+                        <button type="button" class="cor-playlist-editar" data-cor="#4caf50" style="background:#4caf50;"></button>
+                        <button type="button" class="cor-playlist-editar" data-cor="#ffc107" style="background:#ffc107;"></button>
+                        <button type="button" class="cor-playlist-editar" data-cor="#ff5722" style="background:#ff5722;"></button>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-confirmar-alterar-nome-playlist" class="btn btn-palcoplay">Salvar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GERENCIAR LETRAS -->
+    <div class="modal fade" id="modalGerenciarLetras" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Gerenciar letras</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="lista-letras-gerenciar"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR LETRA -->
+    <div class="modal fade" id="modalEditarLetra" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar letra</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <p class="mb-1">Arquivo atual:</p>
+                    <strong id="nome-arquivo-editar-letra"></strong>
+
+                    <button id="btn-trocar-arquivo-letra" type="button" class="btn btn-outline-warning btn-sm mt-3">
+          <i class="bi bi-arrow-repeat"></i>
+          Trocar arquivo
+        </button>
+
+                    <hr>
+
+                    <label class="form-label">Tempo da letra</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="modo-tempo-editar-letra" id="editar-letra-musica-inteira" value="inteira">
+
+                        <label class="form-check-label" for="editar-letra-musica-inteira">
+            Usar do início ao fim da música
+          </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="modo-tempo-editar-letra" id="editar-letra-tempo-definido" value="tempo">
+
+                        <label class="form-check-label" for="editar-letra-tempo-definido">
+            Definir tempo
+          </label>
+                    </div>
+
+                    <div id="bloco-editar-tempos-letra" class="mt-3">
+
+                        <label class="form-label">Tempo inicial</label>
+                        <input type="text" id="input-editar-tempo-inicio-letra" class="form-control" placeholder="Ex: 0:00">
+
+                        <label class="form-label mt-3">Tempo final</label>
+                        <input type="text" id="input-editar-tempo-fim-letra" class="form-control" placeholder="Ex: 2:30">
+
+                    </div>
+
+                    <div id="bloco-editar-paginas-pdf" class="mt-3">
+
+                        <hr>
+
+                        <label class="form-label">Como usar este PDF?</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="modo-pdf-editar-letra" id="editar-pdf-inteiro" value="inteiro">
+
+                            <label class="form-check-label" for="editar-pdf-inteiro">
+              PDF inteiro
+            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="modo-pdf-editar-letra" id="editar-pdf-paginas" value="paginas">
+
+                            <label class="form-check-label" for="editar-pdf-paginas">
+              Apenas páginas específicas
+            </label>
+                        </div>
+
+                        <div id="bloco-editar-campos-paginas-pdf" class="mt-3">
+
+                            <label class="form-label">Página inicial</label>
+                            <input type="number" id="input-editar-pagina-inicial-pdf" class="form-control" min="1" placeholder="Ex: 2">
+
+                            <label class="form-label mt-3">Página final opcional</label>
+                            <input type="number" id="input-editar-pagina-final-pdf" class="form-control" min="1" placeholder="Se vazio, usa só a página inicial">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+                    <button id="btn-salvar-edicao-letra" class="btn btn-palcoplay">
+          Salvar alterações
+        </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GERENCIAR VOLUMES -->
+    <div class="modal fade" id="modalGerenciarVolumes" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Gerenciar Volumes</h5>
+
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal">
+                </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="volumes-topo">
+                        <button id="btn-preview-volumes" class="btn-play-volumes">
+            ▶
+        </button>
+
+                        <strong id="nome-musica-volumes" class="nome-musica-volumes">
+            Nome da música
+        </strong>
+                    </div>
+
+                    <div class="volume-linha">
+                        <div class="volume-label">
+                            <span>Volume Geral</span>
+                            <strong id="valor-volume-geral">100%</strong>
+                        </div>
+
+                        <input type="range" id="volume-geral" class="form-range" min="0" max="100" value="100">
+                    </div>
+
+                    <div class="volume-linha">
+                        <div class="volume-label">
+                            <span id="texto-canal-esquerdo">Esquerda</span>
+
+                            <button type="button" class="btn-editar-volume" id="btn-editar-canal-esquerdo">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+                            <strong id="valor-volume-esquerdo">100%</strong>
+                        </div>
+
+                        <input type="range" id="volume-esquerdo" class="form-range" min="0" max="100" value="100">
+                    </div>
+
+                    <div class="volume-linha">
+                        <div class="volume-label">
+                            <span id="texto-canal-direito">Direita</span>
+
+                            <button type="button" class="btn-editar-volume" id="btn-editar-canal-direito">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+                            <strong id="valor-volume-direito">100%</strong>
+                        </div>
+
+                        <input type="range" id="volume-direito" class="form-range" min="0" max="100" value="100">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                    <button id="btn-salvar-volumes" class="btn btn-palcoplay">
+                    Salvar
+                </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR NOME DO CANAL -->
+    <div class="modal fade" id="modalEditarNomeCanal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar nome do canal</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Nome do canal</label>
+                    <input type="text" id="input-nome-canal-volume" class="form-control">
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-cancelar" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                    <button id="btn-salvar-nome-canal-volume" class="btn btn-palcoplay">
+                    Salvar
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalArquivosDesconectados" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Arquivos desconectados</h5>
+                </div>
+
+                <div class="modal-body text-center">
+                    <i class="bi bi-exclamation-triangle text-warning" style="font-size: 42px;"></i>
+
+                    <p class="mt-3">
+                        Existem <strong id="quantidade-arquivos-desconectados">0</strong> arquivos desconectados.
+                    </p>
+
+                    <p class="texto-config-pasta">
+                        Clique em sincronizar para reconectar suas músicas e letras.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn-sincronizar-pos-backup" class="btn btn-palcoplay">
+                    <i class="bi bi-arrow-repeat"></i>
+                    Sincronizar arquivos
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPlanoPro" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-dark">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">🚀 Plano Pro em breve</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Estamos preparando recursos exclusivos para músicos que precisam de mais liberdade no palco.</p>
+
+                    <ul>
+                        <li>Playlists ilimitadas</li>
+                        <li>Músicas ilimitadas</li>
+                        <li>Backup automático</li>
+                        <li>Recuperação de alterações</li>
+                        <li>Novidades futuras</li>
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-palcoplay" data-bs-dismiss="modal">
+                    Fechado
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU LATERAL -->
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="menuPalcoPlay">
+
+        <div class="offcanvas-header">
+
+            <img class="logo-menu-lateral" src="./img/palcoplay-logo-2.png" alt="">
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+
+        </div>
+
+        <div class="auth-menu-topo px-4 py-4">
+
+            <button id="btn-login-google" class="btn-login-google mt-1">
+                <i class="bi bi-google"></i>
+                Entrar com Google
+            </button>
+
+            <div id="usuario-logado" class="usuario-logado d-none">
+
+                <div class="usuario-card">
+
+                    <img id="foto-usuario-auth" class="foto-usuario-auth" src="" alt="Usuário">
+
+                    <div class="usuario-info">
+
+                        <strong id="nome-usuario-auth">
+                            Usuário
+                        </strong>
+
+                        <small id="email-usuario-auth">
+                            email
+                        </small>
+
+                        <span id="plano-usuario-auth">
+                            ⭐ Plano Free
+                        </span>
+
+                    </div>
+
+
+
+                </div>
+
+                <button id="btn-upgrade-pro" class="btn-upgrade-pro">
+                        ⬆ Fazer Upgrade
+                    </button>
+
+            </div>
+
+        </div>
+
+        <div class="offcanvas-body">
+
+            <button id="menu-nova-playlist" class="btn-menu-lateral">
+            <i class="bi bi-music-note-list"></i>
+            Nova Playlist
+        </button>
+
+            <hr>
+
+            <button id="menu-exportar-backup" class="btn-menu-lateral">
+                <i class="bi bi-download"></i>
+                Exportar Backup
+            </button>
+            <small id="texto-ultimo-backup" class="texto-ultimo-backup">
+                Último backup: nunca
+            </small>
+
+            <button id="menu-importar-backup" class="btn-menu-lateral">
+                <i class="bi bi-upload"></i>
+                Importar Backup
+            </button>
+
+            <hr>
+
+            <button id="menu-restaurar-backup-automatico" class="btn-menu-lateral">
+                <i class="bi bi-arrow-counterclockwise"></i>
+                Recuperar alterações perdidas
+            </button>
+
+            <hr>
+
+            <button id="menu-pasta-palcoplay" class="btn-menu-lateral">
+                <i class="bi bi-folder"></i>
+                Pasta PalcoPlay
+            </button>
+
+            <hr>
+
+            <button id="menu-sobre" class="btn-menu-lateral">
+                <i class="bi bi-info-circle"></i>
+                Sobre o PalcoPlay
+            </button>
+
+
+            <div id="auth-menu-rodape" class="auth-menu-rodape d-none">
+                <button id="btn-logout-google" class="btn-sair-google">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sair da conta
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <input type="file" id="input-substituir-letra" accept=".pdf,.png,.jpg,.jpeg" style="display:none">
+
+    <input type="file" id="input-importar-backup" accept=".json" style="display: none;">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="volume.js"></script>
+    <script src="wake-lock.js"></script>
+    <script src="modo-palco.js"></script>
+    <script src="pasta-palcoplay.js"></script>
+    <script type="module" src="auth.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js")
+                .then(function() {
+                    console.log("Service Worker registrado com sucesso.");
+                })
+                .catch(function(error) {
+                    console.log("Erro ao registrar Service Worker:", error);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
