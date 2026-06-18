@@ -132,11 +132,11 @@ function atualizarBotaoPastaHome() {
     btnConectarPastaHome.classList.remove("d-none");
 
     btnConectarPastaHome.innerHTML =
-        '<i class="bi bi-folder2-open"></i> Configurar Pasta PalcoPlay';
+        '<i class="bi bi-folder-check"></i> Confirmar acesso à pasta';
 
     if (textoPastaHome) {
-        textoPastaHome.textContent =
-            "Configure sua pasta para usar todos os recursos do PalcoPlay.";
+        textoPastaHome.innerHTML =
+            "Toque no botão e depois em <strong>Usar esta pasta</strong>.";
     }
 }
 
@@ -157,8 +157,13 @@ async function escolherESincronizarPastaPalcoPlay() {
             localStorage.getItem("palcoplay_precisa_reconfigurar_pasta");
 
         if (precisaReconfigurar === "sim") {
-            pastaPalcoPlayHandle = await window.showDirectoryPicker();
+            pastaPalcoPlayHandle = await window.showDirectoryPicker({
+                id: "palcoplay-pasta-principal",
+                mode: "read"
+            });
+
             await salvarPastaPalcoPlay(pastaPalcoPlayHandle);
+
             localStorage.removeItem("palcoplay_precisa_reconfigurar_pasta");
         }
 
@@ -167,10 +172,13 @@ async function escolherESincronizarPastaPalcoPlay() {
         }
 
         if (!pastaPalcoPlayHandle) {
-            pastaPalcoPlayHandle = await window.showDirectoryPicker();
+            pastaPalcoPlayHandle = await window.showDirectoryPicker({
+                id: "palcoplay-pasta-principal",
+                mode: "read"
+            });
+
             await salvarPastaPalcoPlay(pastaPalcoPlayHandle);
         }
-
         const arquivosEncontrados = [];
 
         for await (const entrada of pastaPalcoPlayHandle.values()) {
