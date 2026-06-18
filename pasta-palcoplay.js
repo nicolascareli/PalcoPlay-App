@@ -139,21 +139,19 @@ function atualizarBotaoPastaHome() {
             "Configure sua pasta para usar todos os recursos do PalcoPlay.";
     }
 }
+
 async function escolherESincronizarPastaPalcoPlay() {
+    const textoStatusPastaHome =
+        document.getElementById("texto-pasta-home");
 
     try {
-
-        const textoPastaHome =
-            document.getElementById("texto-pasta-home");
-
-        if (textoPastaHome) {
-            textoPastaHome.innerHTML =
+        if (textoStatusPastaHome) {
+            textoStatusPastaHome.innerHTML =
                 '<span class="status-pasta-home">' +
                 '<strong>🔄 Sincronizando arquivos...</strong>' +
                 '<span>Isso pode levar alguns segundos.</span>' +
                 '</span>';
         }
-
 
         const precisaReconfigurar =
             localStorage.getItem("palcoplay_precisa_reconfigurar_pasta");
@@ -161,7 +159,6 @@ async function escolherESincronizarPastaPalcoPlay() {
         if (precisaReconfigurar === "sim") {
             pastaPalcoPlayHandle = await window.showDirectoryPicker();
             await salvarPastaPalcoPlay(pastaPalcoPlayHandle);
-
             localStorage.removeItem("palcoplay_precisa_reconfigurar_pasta");
         }
 
@@ -192,13 +189,6 @@ async function escolherESincronizarPastaPalcoPlay() {
         localStorage.setItem("palcoplay_config_inicial", "configurado");
         localStorage.removeItem("palcoplay_precisa_reconfigurar_pasta");
 
-        atualizarBotaoPastaHome();
-
-        mostrarMensagemTemporaria(
-            "Aê! Arquivos sincronizados. Só usar!",
-            "success"
-        );
-
         const agora = new Date();
 
         const horario =
@@ -212,15 +202,18 @@ async function escolherESincronizarPastaPalcoPlay() {
             btnConectarPastaHome.classList.add("d-none");
         }
 
-        const textoPastaHome = document.getElementById("texto-pasta-home");
-
-        if (textoPastaHome) {
-            textoPastaHome.innerHTML =
+        if (textoStatusPastaHome) {
+            textoStatusPastaHome.innerHTML =
                 '<span class="status-pasta-home">' +
                 '<strong>🟢 Arquivos sincronizados</strong>' +
                 '<span>• Última sincronização: ' + horario + '</span>' +
                 '</span>';
         }
+
+        mostrarMensagemTemporaria(
+            "Aê! Arquivos sincronizados. Só usar!",
+            "success"
+        );
 
         finalizarConfiguracaoInicial();
 
