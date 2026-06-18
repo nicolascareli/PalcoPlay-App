@@ -142,6 +142,19 @@ function atualizarBotaoPastaHome() {
 async function escolherESincronizarPastaPalcoPlay() {
 
     try {
+
+        const textoPastaHome =
+            document.getElementById("texto-pasta-home");
+
+        if (textoPastaHome) {
+            textoPastaHome.innerHTML =
+                '<span class="status-pasta-home">' +
+                '<strong>🔄 Sincronizando arquivos...</strong>' +
+                '<span>Isso pode levar alguns segundos.</span>' +
+                '</span>';
+        }
+
+
         const precisaReconfigurar =
             localStorage.getItem("palcoplay_precisa_reconfigurar_pasta");
 
