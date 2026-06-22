@@ -92,13 +92,12 @@ body.modo-player #canvas-pdf-player {
 /* IMAGEM */
 
 body.modo-player .letra-imagem-player {
+    width: 100% !important;
+    height: 100% !important;
     max-width: 100% !important;
     max-height: 100% !important;
-    width: auto !important;
-    height: auto !important;
     object-fit: contain !important;
     display: block !important;
-    pointer-events: none !important;
 }
 
 
